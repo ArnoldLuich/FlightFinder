@@ -4,8 +4,9 @@ import SeatOverlay from '../components/seats/SeatOverlay';
 import { Flight } from '../types/types';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
-import { fetchFlights } from '../services/flightService';
+import { fetchFlights, addFlight } from '../services/flightService';
 import FlightFilter from '../components/flights/FlightFilter';
+import { Button } from 'react-bootstrap';
 
 export default function FlightList() {
   const [flights, setFlights] = useState<Flight[]>([]);
@@ -21,21 +22,32 @@ export default function FlightList() {
     maxPrice?: number;
   }>({});
 
-  // Fetch flights whenever filters change
-  useEffect(() => {
-    const loadFlights = async () => {
-      try {
-        const data = await fetchFlights(filters);
-        setFlights(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load flights');
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Function to fetch flights
+  const loadFlights = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchFlights(filters);
+      setFlights(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load flights');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadFlights();
   }, [filters]);
+
+  // Function to add a random flight
+  const handleAddFlight = async () => {
+    try {
+      await addFlight();
+      await loadFlights(); // Reload flights after adding a new one
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to add flight');
+    }
+  };
 
   // Show loading spinner when data is being fetched
   if (loading) return (
@@ -56,6 +68,11 @@ export default function FlightList() {
   return (
     <div className="container mt-4">
       <h1 className="mb-4">Available Flights</h1>
+
+      {/* Button to add a random flight */}
+      <Button onClick={handleAddFlight} className="mb-3">
+        Create Random Flight
+      </Button>
 
       {/* Flight filter component */}
       <FlightFilter onFilterChange={setFilters} />

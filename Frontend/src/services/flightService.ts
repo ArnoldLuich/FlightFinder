@@ -11,3 +11,12 @@ export const fetchFlights = async (params?: Record<string, any>): Promise<Flight
     throw new Error(errorMessage);
   }
 };
+
+export const addFlight = async (): Promise<void> => {
+  try {
+    await axios.get('http://localhost:8080/flight/add');
+  } catch (error) {
+    const errorMessage = axios.isAxiosError(error) && error.response?.data?.message || 'An unexpected error occurred';
+    throw new Error(errorMessage);
+  }
+};
