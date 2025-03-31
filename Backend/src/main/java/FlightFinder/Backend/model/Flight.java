@@ -1,6 +1,7 @@
 package FlightFinder.Backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,7 +44,8 @@ public class Flight {
     @JsonFormat(shape = JsonFormat.Shape.NUMBER_FLOAT)
     private Double price;
 
-    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Seat> seats;
 
 }

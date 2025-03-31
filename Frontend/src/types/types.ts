@@ -31,6 +31,14 @@ export const featureEmojis: Record<SeatFeature, string> = {
 
 // Props for the flight filter component, used to filter available flights
 export interface FlightFilterProps {
+  filters: {
+    startLocation?: string;
+    destination?: string;
+    departureDate?: string;
+    departureTime?: string;
+    minPrice?: number;
+    maxPrice?: number;
+  };
   onFilterChange: (filters: {
     startLocation?: string;
     destination?: string;

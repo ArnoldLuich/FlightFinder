@@ -4,6 +4,8 @@ import FlightFinder.Backend.model.Flight;
 import FlightFinder.Backend.model.Seat;
 import FlightFinder.Backend.model.SeatFeature;
 import FlightFinder.Backend.repository.FlightRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -80,6 +82,13 @@ public class FlightServiceImpl implements FlightService {
         }
 
         return flightRepository.findAll(spec);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Seat> getSeatsByFlight(Long id) {
+        Flight flight = flightRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Flight not found with id: " + id));
+        return flight.getSeats();
     }
 
     /**

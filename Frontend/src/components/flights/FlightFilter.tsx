@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Button, Row, Col, Alert } from 'react-bootstrap';
 import { FlightFilterProps } from '../../types/types';
 
 // FlightFilter component allows users to filter flights
-export default function FlightFilter({ onFilterChange }: FlightFilterProps) {
+export default function FlightFilter({ filters, onFilterChange }: FlightFilterProps) {
   const [startLocation, setStartLocation] = useState('');
   const [destination, setDestination] = useState('');
   const [departureDate, setDepartureDate] = useState('');
@@ -11,6 +11,15 @@ export default function FlightFilter({ onFilterChange }: FlightFilterProps) {
   const [minPrice, setMinPrice] = useState<number | undefined>();
   const [maxPrice, setMaxPrice] = useState<number | undefined>();
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setStartLocation(filters.startLocation ?? '');
+    setDestination(filters.destination ?? '');
+    setDepartureDate(filters.departureDate ?? '');
+    setDepartureTime(filters.departureTime ?? '');
+    setMinPrice(filters.minPrice);
+    setMaxPrice(filters.maxPrice);
+  }, [filters]);
 
   // Handles form submission to apply filters
   const handleSubmit = (e: React.FormEvent) => {
@@ -58,6 +67,7 @@ export default function FlightFilter({ onFilterChange }: FlightFilterProps) {
               type="text"
               placeholder="Departure city"
               value={startLocation}
+              maxLength={50}
               onChange={(e) => setStartLocation(e.target.value)}
             />
           </Form.Group>
@@ -71,6 +81,7 @@ export default function FlightFilter({ onFilterChange }: FlightFilterProps) {
               type="text"
               placeholder="Destination city"
               value={destination}
+              maxLength={50}
               onChange={(e) => setDestination(e.target.value)}
             />
           </Form.Group>
@@ -108,6 +119,8 @@ export default function FlightFilter({ onFilterChange }: FlightFilterProps) {
               type="number"
               placeholder="€ Min"
               value={minPrice ?? ''}
+              min={0}
+              max={10000}
               onChange={(e) =>
                 setMinPrice(e.target.value === '' ? undefined : Number(e.target.value))
               }
@@ -123,6 +136,8 @@ export default function FlightFilter({ onFilterChange }: FlightFilterProps) {
               type="number"
               placeholder="€ Max"
               value={maxPrice ?? ''}
+              min={0}
+              max={10000}
               onChange={(e) =>
                 setMaxPrice(e.target.value === '' ? undefined : Number(e.target.value))
               }

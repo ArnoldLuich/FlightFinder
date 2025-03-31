@@ -1,14 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal, Badge, Button, Alert } from 'react-bootstrap';
-import { SeatFeature, SeatOverlayProps, featureEmojis } from '../../types/types';
+import { Seat, SeatFeature, SeatOverlayProps, featureEmojis } from '../../types/types';
 import SeatFilters from './SeatFilters';
 import { seatService } from '../../services/seatService';
+import { flightService } from '../../services/flightService';
 
 export default function SeatOverlay({ flight, show, onHide }: SeatOverlayProps) {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [numSeatsRequired, setNumSeatsRequired] = useState(1);
   const [desiredFeatures, setDesiredFeatures] = useState<SeatFeature[]>([]);
   const [showNoSeatsModal, setShowNoSeatsModal] = useState(false);
+  const [seats, setSeats] = useState<Seat[]>([]);
+
+  // Fetch seats when flight is selected
+  const fetchSeats = async () => {
+    if (!flight) return;
+
+    try {
+      const fetchedSeats = await flightService.fetchSeatsByFlight(flight.id); // Fetch the seats using the service
+      setSeats(fetchedSeats);
+    } catch (error) {
+      console.error('Error fetching seats:', error);
+      setSeats([]);
+      setShowNoSeatsModal(true);
+    }
+  };
+  
+  // Fetch seats when the modal is shown and flight is selected
+  useEffect(() => {
+    if (show && flight) {
+      fetchSeats();
+    }
+  }, [show, flight]); // Re-fetch seats when modal is shown or flight changes
 
   // Fetch seat recommendations based on user-selected filters
   const applyFilters = async () => {
@@ -78,7 +101,7 @@ export default function SeatOverlay({ flight, show, onHide }: SeatOverlayProps) 
 
           {/* Seat selection grid */}
           <div className="row g-2">
-            {flight.seats.map(seat => {
+            {seats.map(seat => {
               const seatId = seat.id.toString();
               const isSelected = selectedSeats.includes(seatId);
               const isOccupied = seat.isOccupied;

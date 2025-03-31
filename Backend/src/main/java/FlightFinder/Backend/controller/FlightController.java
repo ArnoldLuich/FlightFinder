@@ -50,6 +50,13 @@ public class FlightController {
                 maxPrice
         );
     }
+    /**
+     * Endpoint to retrieve only the seat data for a specific flight.
+     */
+    @GetMapping("/{flightId}/seats")
+    public List<Seat> getSeatsByFlight(@PathVariable Long flightId) {
+        return flightService.getSeatsByFlight(flightId);
+    }
 
     /**
      * Endpoint to add a new random flight to the system.

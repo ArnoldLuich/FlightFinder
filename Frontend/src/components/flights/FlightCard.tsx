@@ -14,7 +14,7 @@ export default function FlightCard({ flight, onClick }: FlightCardProps) {
           {new Date(flight.departureDate).toLocaleDateString()} • {flight.departureTime.slice(0, 5)}
         </div>
 
-        <span className="h4 text-primary">${flight.price.toFixed(2)}</span>
+        <span className="h4 text-primary">€{flight.price.toFixed(2)}</span>
       </div>
     </div>
   );

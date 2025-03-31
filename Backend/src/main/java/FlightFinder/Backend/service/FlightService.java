@@ -17,6 +17,8 @@ public interface FlightService {
                                        Double minPrice,
                                        Double maxPrice);
 
+    List<Seat> getSeatsByFlight(Long id);
+
     void addFlight();
 
     void delete(Long id);

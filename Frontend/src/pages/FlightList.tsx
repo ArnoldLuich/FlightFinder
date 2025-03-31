@@ -4,7 +4,7 @@ import SeatOverlay from '../components/seats/SeatOverlay';
 import { Flight } from '../types/types';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
-import { fetchFlights, addFlight } from '../services/flightService';
+import { flightService } from '../services/flightService';
 import FlightFilter from '../components/flights/FlightFilter';
 import { Button } from 'react-bootstrap';
 
@@ -26,7 +26,7 @@ export default function FlightList() {
   const loadFlights = async () => {
     try {
       setLoading(true);
-      const data = await fetchFlights(filters);
+      const data = await flightService.fetchFlights(filters);
       setFlights(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load flights');
@@ -42,7 +42,7 @@ export default function FlightList() {
   // Function to add a random flight
   const handleAddFlight = async () => {
     try {
-      await addFlight();
+      await flightService.addFlight();
       await loadFlights(); // Reload flights after adding a new one
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to add flight');
@@ -75,7 +75,7 @@ export default function FlightList() {
       </Button>
 
       {/* Flight filter component */}
-      <FlightFilter onFilterChange={setFilters} />
+      <FlightFilter filters={filters} onFilterChange={setFilters} />
 
       {/* Flight cards list */}
       <div className="flight-list">

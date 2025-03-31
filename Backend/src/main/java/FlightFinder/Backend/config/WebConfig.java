@@ -15,7 +15,6 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry
                         .addMapping("/**") // Allow all endpoints
-                        //.allowedOrigins("http://localhost:3000")
                         .allowedOrigins("http://localhost:5173")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*"); // Allow all headers
