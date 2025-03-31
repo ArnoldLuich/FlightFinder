@@ -4,6 +4,11 @@
 
 
 ## Rakenduse Käivitamine
+### Eeldused:
+- [Docker](https://docs.docker.com/desktop/setup/install/windows-install/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Java 21](https://www.oracle.com/ee/java/technologies/downloads/#java21)
+
 
 ### Samm 1: Klooni Projekt
 ```sh
@@ -38,6 +43,7 @@ Käivitab Spring Boot backendi
 
 Käivitab React frontendi
 
-## Kulunud aega
+## Probleemid ja lahendused
 
-## Keerulised koda lahensuses
+
+## Ajakulu ja arenduse etapid
