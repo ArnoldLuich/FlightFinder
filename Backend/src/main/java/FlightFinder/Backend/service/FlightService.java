@@ -18,6 +18,4 @@ public interface FlightService {
     List<Seat> getSeatsByFlight(Long id);
 
     void addFlight();
-
-    void delete(Long id);
 }

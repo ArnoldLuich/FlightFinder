@@ -9,10 +9,13 @@ import java.util.List;
 public class SeatFinderUtils {
 
     /**
-     * Creates a comparator for seat groups based on feature score, row, and seat number.
+     * Creates a comparator for seat groups based on feature score, row, and seat
+     * number.
      *
-     * Groups with higher feature scores are preferred. If scores are equal, groups in earlier rows
-     * are chosen. If rows are the same, groups with smaller seat numbers are prioritized.
+     * Groups with higher feature scores are preferred. If scores are equal, groups
+     * in earlier rows
+     * are chosen. If rows are the same, groups with smaller seat numbers are
+     * prioritized.
      *
      * @param features The list of desired seat features.
      * @return A comparator for sorting seat groups.
@@ -31,7 +34,7 @@ public class SeatFinderUtils {
      * The score is determined by counting how many desired features are present
      * in the given group of seats.
      *
-     * @param group The list of seats in the group.
+     * @param group           The list of seats in the group.
      * @param desiredFeatures The list of features to match.
      * @return The total number of desired features found in the group.
      */

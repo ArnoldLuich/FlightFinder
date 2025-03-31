@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/seat-recommendations")
 public class SeatController {
@@ -19,19 +18,21 @@ public class SeatController {
     }
 
     /**
-     * Endpoint to get seat recommendations based on the flight ID, required number of seats, and desired seat features.
+     * Endpoint to get seat recommendations based on the flight ID, required number
+     * of seats, and desired seat features.
      *
-     * @param flightId The ID of the flight for which seat recommendations are needed.
+     * @param flightId         The ID of the flight for which seat recommendations
+     *                         are needed.
      * @param numSeatsRequired The number of seats the user wants to reserve.
-     * @param desiredFeatures Optional list of desired seat features (e.g., window seat, more legroom).
+     * @param desiredFeatures  Optional list of desired seat features (e.g., window
+     *                         seat, more legroom).
      * @return List of recommended seats for the given flight.
      */
     @GetMapping("/{flightId}/")
     public List<Seat> getSeatRecommendations(
             @PathVariable Long flightId,
             @RequestParam int numSeatsRequired,
-            @RequestParam(required = false) List<SeatFeature> desiredFeatures
-    ) {
+            @RequestParam(required = false) List<SeatFeature> desiredFeatures) {
         return seatService.getSeatRecommendations(flightId, numSeatsRequired, desiredFeatures);
     }
 }

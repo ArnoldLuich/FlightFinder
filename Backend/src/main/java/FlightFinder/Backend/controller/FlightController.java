@@ -63,9 +63,4 @@ public class FlightController {
     public void addFlight() {
         flightService.addFlight();
     }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        flightService.delete(id);
-    }
 }

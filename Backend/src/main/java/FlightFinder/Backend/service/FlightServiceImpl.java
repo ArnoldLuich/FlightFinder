@@ -26,12 +26,12 @@ public class FlightServiceImpl implements FlightService {
     /**
      * Gets a list of flights based on the provided filters.
      *
-     * @param startLocation  Starting location for the flight.
-     * @param destination    Destination of the flight.
-     * @param departureDate  Date the flight departs.
-     * @param departureTime  Time the flight departs.
-     * @param minPrice       Minimum price of the flight.
-     * @param maxPrice       Maximum price of the flight.
+     * @param startLocation Starting location for the flight.
+     * @param destination   Destination of the flight.
+     * @param departureDate Date the flight departs.
+     * @param departureTime Time the flight departs.
+     * @param minPrice      Minimum price of the flight.
+     * @param maxPrice      Maximum price of the flight.
      * @return List of flights that match the provided filters.
      */
     @Override
@@ -41,32 +41,25 @@ public class FlightServiceImpl implements FlightService {
             LocalDate departureDate,
             LocalTime departureTime,
             Double minPrice,
-            Double maxPrice
-    ) {
+            Double maxPrice) {
         Specification<Flight> spec = Specification.where(null);
 
         if (startLocation != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("startLocation")), "%" + startLocation.toLowerCase() + "%")
-            );
+            spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("startLocation")),
+                    "%" + startLocation.toLowerCase() + "%"));
         }
 
         if (destination != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("destination")), "%" + destination.toLowerCase() + "%")
-            );
+            spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("destination")),
+                    "%" + destination.toLowerCase() + "%"));
         }
 
         if (departureDate != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("departureDate"), departureDate)
-            );
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("departureDate"), departureDate));
         }
 
         if (departureTime != null) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("departureTime"), departureTime)
-            );
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("departureTime"), departureTime));
         }
 
         if (minPrice != null || maxPrice != null) {
@@ -87,7 +80,8 @@ public class FlightServiceImpl implements FlightService {
     @Override
     @Transactional(readOnly = true)
     public List<Seat> getSeatsByFlight(Long id) {
-        Flight flight = flightRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Flight not found with id: " + id));
+        Flight flight = flightRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Flight not found with id: " + id));
         return flight.getSeats();
     }
 
@@ -109,8 +103,10 @@ public class FlightServiceImpl implements FlightService {
         flight.setDestination(cities.get(1));
 
         // Randomize departure date and time
-        LocalDate departureDate = LocalDate.of(2025, ThreadLocalRandom.current().nextInt(1, 13), ThreadLocalRandom.current().nextInt(1, 29));
-        LocalTime departureTime = LocalTime.of(ThreadLocalRandom.current().nextInt(0, 24), ThreadLocalRandom.current().nextInt(0, 60));
+        LocalDate departureDate = LocalDate.of(2025, ThreadLocalRandom.current().nextInt(1, 13),
+                ThreadLocalRandom.current().nextInt(1, 29));
+        LocalTime departureTime = LocalTime.of(ThreadLocalRandom.current().nextInt(0, 24),
+                ThreadLocalRandom.current().nextInt(0, 60));
         flight.setDepartureDate(departureDate);
         flight.setDepartureTime(departureTime);
 
@@ -122,7 +118,7 @@ public class FlightServiceImpl implements FlightService {
 
         // Define airplane seat configuration
         int numRows = 6;
-        String[] seatColumns = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"};
+        String[] seatColumns = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L" };
 
         // Loop through columns first, then rows to arrange seats left to right
         for (String column : seatColumns) {
@@ -163,10 +159,5 @@ public class FlightServiceImpl implements FlightService {
 
         // Save the flight (CascadeType.ALL ensures seats are saved too)
         flightRepository.save(flight);
-    }
-
-    @Override
-    public void delete(Long id) {
-        flightRepository.deleteById(id);
     }
 }

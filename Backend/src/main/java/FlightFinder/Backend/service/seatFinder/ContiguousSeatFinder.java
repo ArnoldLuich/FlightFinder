@@ -8,14 +8,17 @@ import java.util.*;
 public class ContiguousSeatFinder {
 
     /**
-     * Finds the best contiguous group of seats that match the given number of seats and desired features.
+     * Finds the best contiguous group of seats that match the given number of seats
+     * and desired features.
      *
      * @param availableSeats List of all available seats.
-     * @param numSeats Number of seats required.
-     * @param features Desired seat features for prioritization.
-     * @return The best contiguous group of seats or an empty list if no valid group is found.
+     * @param numSeats       Number of seats required.
+     * @param features       Desired seat features for prioritization.
+     * @return The best contiguous group of seats or an empty list if no valid group
+     *         is found.
      */
-    public static List<Seat> findBestContiguousSeatGroup(List<Seat> availableSeats, int numSeats, List<SeatFeature> features) {
+    public static List<Seat> findBestContiguousSeatGroup(List<Seat> availableSeats, int numSeats,
+            List<SeatFeature> features) {
         // Group available seats by their row.
         Map<String, List<Seat>> seatsByRow = new HashMap<>();
         for (Seat seat : availableSeats) {
@@ -33,7 +36,7 @@ public class ContiguousSeatFinder {
      * Finds all valid contiguous groups of seats in each row.
      *
      * @param seatsByRow Map of row names to lists of available seats in that row.
-     * @param numSeats Number of seats required in a group.
+     * @param numSeats   Number of seats required in a group.
      * @return A list of valid contiguous seat groups.
      */
     private static List<List<Seat>> findContiguousGroups(Map<String, List<Seat>> seatsByRow, int numSeats) {
@@ -61,7 +64,7 @@ public class ContiguousSeatFinder {
     /**
      * Checks if a given group of seats is contiguous.
      *
-     * @param group The group of seats to check.
+     * @param group    The group of seats to check.
      * @param numSeats The expected number of seats in the group.
      * @return True if the seats form a contiguous group, false otherwise.
      */
@@ -78,10 +81,11 @@ public class ContiguousSeatFinder {
     }
 
     /**
-     * Selects the best seat group from the available contiguous seat groups based on the given features.
+     * Selects the best seat group from the available contiguous seat groups based
+     * on the given features.
      *
      * @param allGroupsSameRow List of valid contiguous seat groups.
-     * @param features Desired seat features for prioritization.
+     * @param features         Desired seat features for prioritization.
      * @return The best seat group, or an empty list if no suitable group is found.
      */
     private static List<Seat> selectBestGroup(List<List<Seat>> allGroupsSameRow, List<SeatFeature> features) {

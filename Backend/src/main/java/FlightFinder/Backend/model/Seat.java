@@ -31,9 +31,9 @@ public class Seat {
     private boolean isOccupied;
 
     @ElementCollection(targetClass = SeatFeature.class)
-    //creates a separate table seat_features to store seat attributes.
+    // creates a separate table seat_features to store seat attributes.
     @CollectionTable(name = "seat_features", joinColumns = @JoinColumn(name = "seat_id"))
-    @Enumerated(EnumType.STRING) //stores enum values as readable text instead of numbers.
+    @Enumerated(EnumType.STRING) // stores enum values as readable text instead of numbers.
     @Column(name = "feature")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Set<SeatFeature> features;

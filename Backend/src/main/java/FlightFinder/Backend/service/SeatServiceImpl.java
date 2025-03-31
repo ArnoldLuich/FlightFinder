@@ -35,7 +35,8 @@ public class SeatServiceImpl implements SeatService {
         }
 
         // Ensure desiredFeatures is never null
-        List<SeatFeature> nonNullDesiredFeatures = (desiredFeatures != null) ? desiredFeatures : Collections.emptyList();
+        List<SeatFeature> nonNullDesiredFeatures = (desiredFeatures != null) ? desiredFeatures
+                : Collections.emptyList();
 
         // Fetch the flight and find the best seat group if the flight exists.
         return flightRepository.findById(flightId)

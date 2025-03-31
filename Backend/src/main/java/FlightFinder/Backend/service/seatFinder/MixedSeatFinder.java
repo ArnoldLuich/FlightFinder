@@ -10,14 +10,17 @@ import java.util.List;
 
 public class MixedSeatFinder {
     /**
-     * Finds the best mixed seat group considering both row spread and seat features.
+     * Finds the best mixed seat group considering both row spread and seat
+     * features.
      *
      * @param availableSeats List of all available seats.
-     * @param numSeats Number of seats required.
-     * @param features Desired seat features for prioritization.
-     * @return The best group of mixed seats or an empty list if no valid group is found.
+     * @param numSeats       Number of seats required.
+     * @param features       Desired seat features for prioritization.
+     * @return The best group of mixed seats or an empty list if no valid group is
+     *         found.
      */
-    public static List<Seat> findBestMixedSeatGroup(List<Seat> availableSeats, int numSeats, List<SeatFeature> features){
+    public static List<Seat> findBestMixedSeatGroup(List<Seat> availableSeats, int numSeats,
+            List<SeatFeature> features) {
         // Sort the seats by row and seat number.
         List<Seat> sortedSeats = sortSeats(availableSeats);
 
@@ -46,7 +49,7 @@ public class MixedSeatFinder {
      * Generates potential seat groups.
      *
      * @param sortedSeats List of seats sorted by row and seat number.
-     * @param numSeats Number of seats required in a group.
+     * @param numSeats    Number of seats required in a group.
      * @return A list of candidate seat groups.
      */
     private static List<List<Seat>> generateCandidateGroups(List<Seat> sortedSeats, int numSeats) {
@@ -64,13 +67,15 @@ public class MixedSeatFinder {
      * Selects the best candidate group based on row spread and seat features.
      *
      * @param candidateGroups List of candidate seat groups.
-     * @param features Desired seat features for prioritization.
-     * @return The best candidate seat group, or an empty list if no suitable group is found.
+     * @param features        Desired seat features for prioritization.
+     * @return The best candidate seat group, or an empty list if no suitable group
+     *         is found.
      */
     private static List<Seat> selectBestCandidateGroup(List<List<Seat>> candidateGroups, List<SeatFeature> features) {
         Comparator<List<Seat>> crossRowComparator = Comparator
                 .comparingInt(MixedSeatFinder::calculateSpread) // Prioritize groups with minimal spread.
-                .thenComparing(SeatFinderUtils.createGroupComparator(features)); // Further refine based on seat features.
+                .thenComparing(SeatFinderUtils.createGroupComparator(features)); // Further refine based on seat
+                                                                                 // features.
 
         return candidateGroups.stream()
                 .min(crossRowComparator)
@@ -81,7 +86,8 @@ public class MixedSeatFinder {
      * Calculates a "spread" metric for a group of seats.
      *
      * The spread is defined as the sum of:
-     * - The row spread: difference between the max and min row (using ASCII values of row letters).
+     * - The row spread: difference between the max and min row (using ASCII values
+     * of row letters).
      * - The seat spread: difference between the max and min seat numbers.
      * A smaller spread indicates that the seats are closer together.
      *
