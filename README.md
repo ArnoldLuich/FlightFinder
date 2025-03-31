@@ -1,7 +1,11 @@
 # FlightFinder
 
 ## Ülevaade
-
+### Rakenduse funktsionaalsused
+1) Lennuplaani vaatamine ja filtreerimine
+2) Lennu valimine
+3) Istekohtade soovitamine
+4) Random lennu lisamine 
 
 ## Rakenduse Käivitamine
 ### Eeldused:
@@ -69,4 +73,6 @@ Selle projekti arendamiseks kulus kokku 5 päeva, mille jooksul töötasin ligik
    2. Parandasin vigu, optimeerisin koodi ja täiustasin kasutajakogemust.
    3. Dokumenteerisin projekti
 ## Kasutatud ressursid
+
+
 
