@@ -17,6 +17,14 @@ Veendu, et need ühtivad sinu PostgreSQL seadistusega.
 
 ### Samm 3: Ehita Backend
 
+```sh
+cd backend
+```
+
+```sh
+./gradlew clean bootJar
+```
+
 ### Samm 4: Käivita Rakendus Dockeriga
 
 ```sh
