@@ -47,3 +47,15 @@ Käivitab React frontendi
 
 
 ## Ajakulu ja arenduse etapid
+Selle projekti arendamiseks kulus kokku 5 päeva, mille jooksul töötasin ligikaudu 32 tundi.
+
+### 1. Planeerimine ja jooniste loomine
+	Analüüsisin ülesannet ja määratlesin vajalikud funktsionaalsused.
+
+	Joonistasin skeemi, et paremini mõista, milliseid komponente on vaja
+
+### 2. Backend arendus
+
+### 3. Frontend arendus
+
+### 4. Funktsionaalsuste täiustamine ja koodi puhastamine
