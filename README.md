@@ -41,6 +41,7 @@ Kui oled eelnevalt ette valmistanud backend'i, käivita rakendus Dockeris juurka
 ```sh
 docker-compose up --build
 ```
+http://localhost:5173/
 
 ## Probleemid ja lahendused
 Suurimaks väljakutseks osutus istekohtade soovitamise algoritm. Peamine keerukus seisnes selles, kuidas määrata parim võimalik istekoht vastavalt kasutaja eelistustele ja olemasolevale istekohtade paigutusele.
