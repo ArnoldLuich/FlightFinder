@@ -1,16 +1,15 @@
-import axios from 'axios';
-import { Flight, Seat } from '../types/types';
+import axios from "axios";
+import { Flight, Seat } from "../types/types";
 
 export const flightService = {
-  // Function to fetch flights from the API with optional filter parameters
   async fetchFlights(params?: Record<string, any>): Promise<Flight[]> {
     try {
-      const { data } = await axios.get<Flight[]>('http://localhost:8080/flight/filter', { params });
-      console.log("bug ---- >");
+      const { data } = await axios.get<Flight[]>("http://localhost:8080/flight/filter", { params });
       return data;
     } catch (error) {
-      const errorMessage = axios.isAxiosError(error) && error.response?.data?.message || 'An unexpected error occurred';
-      throw new Error(errorMessage);
+      throw new Error(
+        axios.isAxiosError(error) && error.response?.data?.message ? error.response.data.message : "An unexpected error occurred"
+      );
     }
   },
 
@@ -19,18 +18,19 @@ export const flightService = {
       const { data } = await axios.get<Seat[]>(`http://localhost:8080/flight/${flightId}/seats`);
       return data;
     } catch (error) {
-      const errorMessage = axios.isAxiosError(error) && error.response?.data?.message || 'An unexpected error occurred';
-      throw new Error(errorMessage);
+      throw new Error(
+        axios.isAxiosError(error) && error.response?.data?.message ? error.response.data.message : "An unexpected error occurred"
+      );
     }
   },
 
   async addFlight(): Promise<void> {
     try {
-      await axios.get('http://localhost:8080/flight/add');
+      await axios.get("http://localhost:8080/flight/add");
     } catch (error) {
-      const errorMessage = axios.isAxiosError(error) && error.response?.data?.message || 'An unexpected error occurred';
-      throw new Error(errorMessage);
+      throw new Error(
+        axios.isAxiosError(error) && error.response?.data?.message ? error.response.data.message : "An unexpected error occurred"
+      );
     }
   },
 };
-

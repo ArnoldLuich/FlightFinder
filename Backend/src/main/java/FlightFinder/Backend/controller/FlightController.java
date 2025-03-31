@@ -2,7 +2,6 @@ package FlightFinder.Backend.controller;
 
 import FlightFinder.Backend.model.Flight;
 import FlightFinder.Backend.model.Seat;
-import FlightFinder.Backend.model.SeatFeature;
 import FlightFinder.Backend.service.FlightService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/flight")
@@ -26,11 +24,11 @@ public class FlightController {
      * Endpoint to get flights based on various filter criteria.
      *
      * @param startLocation Optional start location of the flight.
-     * @param destination Optional destination of the flight.
+     * @param destination   Optional destination of the flight.
      * @param departureDate Optional departure date of the flight.
      * @param departureTime Optional departure time of the flight.
-     * @param minPrice Optional minimum price of the flight.
-     * @param maxPrice Optional maximum price of the flight.
+     * @param minPrice      Optional minimum price of the flight.
+     * @param maxPrice      Optional maximum price of the flight.
      * @return List of flights that match the provided filters.
      */
     @GetMapping("/filter")
@@ -47,9 +45,9 @@ public class FlightController {
                 departureDate,
                 departureTime,
                 minPrice,
-                maxPrice
-        );
+                maxPrice);
     }
+
     /**
      * Endpoint to retrieve only the seat data for a specific flight.
      */

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Modal, Badge, Button, Alert } from 'react-bootstrap';
 import { Seat, SeatFeature, SeatOverlayProps, featureEmojis } from '../../types/types';
 import SeatFilters from './SeatFilters';
@@ -12,44 +12,38 @@ export default function SeatOverlay({ flight, show, onHide }: SeatOverlayProps) 
   const [showNoSeatsModal, setShowNoSeatsModal] = useState(false);
   const [seats, setSeats] = useState<Seat[]>([]);
 
-  // Fetch seats when flight is selected
-  const fetchSeats = async () => {
-    if (!flight) return;
-
-    try {
-      const fetchedSeats = await flightService.fetchSeatsByFlight(flight.id); // Fetch the seats using the service
-      setSeats(fetchedSeats);
-    } catch (error) {
-      console.error('Error fetching seats:', error);
-      setSeats([]);
-      setShowNoSeatsModal(true);
-    }
-  };
-  
   // Fetch seats when the modal is shown and flight is selected
   useEffect(() => {
-    if (show && flight) {
-      fetchSeats();
-    }
-  }, [show, flight]); // Re-fetch seats when modal is shown or flight changes
+    if (!show || !flight) return;
+
+    const fetchSeats = async () => {
+      try {
+        const fetchedSeats = await flightService.fetchSeatsByFlight(flight.id);
+        setSeats(fetchedSeats);
+      } catch (error) {
+        console.error("Error fetching seats:", error);
+        setSeats([]);
+        setShowNoSeatsModal(true);
+      }
+    };
+
+    fetchSeats();
+  }, [show, flight]);
 
   // Fetch seat recommendations based on user-selected filters
-  const applyFilters = async () => {
+  const applyFilters = useCallback(async () => {
     if (!flight) return;
 
     try {
       const seatIds = await seatService.getSeatRecommendations(flight.id, numSeatsRequired, desiredFeatures);
       setSelectedSeats(seatIds.map(String));
-
-      if (seatIds.length === 0) {
-        setShowNoSeatsModal(true);
-      }
+      if (seatIds.length === 0) setShowNoSeatsModal(true);
     } catch (error) {
-      console.error('Error fetching recommendations:', error);
+      console.error("Error fetching recommendations:", error);
       setSelectedSeats([]);
       setShowNoSeatsModal(true);
     }
-  };
+  }, [flight, numSeatsRequired, desiredFeatures]);
 
   // Toggle seat selection
   const toggleSeat = (seatId: string) => {
@@ -58,7 +52,6 @@ export default function SeatOverlay({ flight, show, onHide }: SeatOverlayProps) 
     );
   };
 
-  // If no flight data is available, don't render anything
   if (!flight) return null;
 
   return (
