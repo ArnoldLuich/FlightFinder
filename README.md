@@ -12,7 +12,7 @@
 
 ### Samm 1: Klooni Projekt
 ```sh
-git clone ....
+git clone https://github.com/ArnoldLuich/FlightFinder.git
 ```
 
 ### Samm 2: Kontrolli PostgreSQL Andmebaasi Õigsusi
