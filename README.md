@@ -73,6 +73,9 @@ Selle projekti arendamiseks kulus kokku 5 päeva, mille jooksul töötasin ligik
    2. Parandasin vigu, optimeerisin koodi ja täiustasin kasutajakogemust.
    3. Dokumenteerisin projekti
 ## Kasutatud ressursid
+   Kasutasin oma eelmist projekti [Todo-App]( https://github.com/ArnoldLuich/Todo-App) näidisena nii backend'i kui frontend'i jaoks.
+   Projekti arendamisel kasutasin ka ChatGPT-d, et täiustada kasutajaliidese välimust ja lihtsustada oma koodi.
+
 
 
 
